@@ -6,7 +6,7 @@ block content
 
   script(src='/socket.io/socket.io.js')
   script
-      var socket = io.connect('http://localhost');      
+      var socket = io.connect('/');      
       var strings = [], totalGroups = 0;
       socket.on('connection', function() {
         strings = []; totalGroups = 0;
