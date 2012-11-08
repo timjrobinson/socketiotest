@@ -1,0 +1,21 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+
+  script(src='/socket.io/socket.io.js')
+  script
+      var socket = io.connect('http://localhost');      
+      var strings = [], totalGroups = 0;
+      socket.on('connection', function() {
+        strings = []; totalGroups = 0;
+      })
+      socket.on('string', function (data) {
+      strings.push(data.string);
+      if (strings.length >= 1000) {
+        socket.emit('stringConfirm', { group: totalGroups, strings: strings });
+        totalGroups++;
+        strings = [];
+      }
+      });
